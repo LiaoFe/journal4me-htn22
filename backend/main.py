@@ -6,9 +6,13 @@ import cohere.classify as co_classify
 import dotenv
 import os
 import numpy as np
+import pandas as pd
 
 # using dotenv
 dotenv.load_dotenv()
+
+# fetching api key for cohere
+co_client = cohere.Client(f'{os.getenv("COHERE_KEY")}')
 
 # using fast api
 app = FastAPI()
@@ -20,15 +24,12 @@ async def read_root():
         "Running on this localhost"
     }
 
-# analyzes the text 
+# analyzes the text to determine the mood from the text
 # prod: vector for [happy transcript, sad transcript] 
-@app.get('/analyze_speech2txt/{speech2txt}')
-async def analyze_speech2txt(speech2txt : str):
+@app.post('/analyze_speech2txt/')
+def analyze_speech2txt(speech2txt : str):
     # happiness vector
     day_decoding = ['happy', 'sad']
-    
-    # fetching api key for cohere
-    co_client = cohere.Client(f'{os.getenv("COHERE_KEY")}')
 
     # classifying the transcript
     response = co_client.classify(
@@ -54,7 +55,58 @@ async def analyze_speech2txt(speech2txt : str):
     happiness_encoding = ([response_labels['happy'].confidence, response_labels['sad'].confidence])
 
     # // NOTE: this information will be added to the database
-    return {
+    result = { 
         'speech': speech2txt,
-        'rating': day_decoding[np.argmax(happiness_encoding)]
-    }
+        'rating': day_decoding[np.argmax(happiness_encoding)] }
+
+    return result
+
+# summarizes the text
+# NOTE: NEED TO FIX THIS SHT
+@app.post('/summarize_speech2txt/')
+async def summarize__speech2txt(speech2txt : str):
+    prompt = f'''"Today, I walked my sibling to school. It was a relaxing walk. I hope to do it as much as I can."
+        In summary: "A highlight of today was walking my sibling"
+
+        "When I ran on the field, I tripped and got a bruise, it hurt quite a bit."
+        In summary:"I got a bruise from falling"
+
+        "{speech2txt}"
+        In summary:"'''
+    n_generations = 5
+
+    prediction = co_client.generate(
+        model = 'large', 
+        prompt = prompt, 
+        return_likelihoods = 'GENERATION', 
+        stop_sequences = ['"'], 
+        max_tokens = 50,
+        temperature = 0.7, 
+        num_generations = n_generations, 
+        k = 0,
+        p = 0.75
+    )
+
+    gens = []
+    likelihoods = []
+    for gen in prediction.generations:
+        gens.append(gen.text)
+
+        sum_likelihood = 0
+        for t in gen.token_likelihoods:
+            sum_likelihood += t.likelihood
+        # Get sum of likelihoods
+        likelihoods.append(sum_likelihood)
+
+    pd.options.display.max_colwidth = 200
+    # Create a dataframe for the generated sentences and their likelihood scores
+    df = pd.DataFrame({'generation':gens, 'likelihood': likelihoods})
+    # Drop duplicates
+    df = df.drop_duplicates(subset=['generation'])
+    # Sort by highest sum likelihood
+    df = df.sort_values('likelihood', ascending=False, ignore_index=True)
+
+    result = df['generation'][0]
+    result = result[0 : max(0, len(result) - 2)]
+
+    return result
