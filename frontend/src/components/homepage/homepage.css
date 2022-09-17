@@ -1,0 +1,55 @@
+:root {
+    --bg-green: #B2F2C3;
+    --font-blue: #2F7E9A;
+    --light-blue: #67B0CA;
+}
+
+.container {
+    background-color: var(--bg-green);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}   
+
+.header {
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding-top: 20px;
+}
+
+.header a {
+    color: var(--font-blue);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: x-large;
+}
+
+.header a:hover {
+    text-decoration: underline;
+}
+
+.title {
+    color: var(--font-blue);
+    font-size: 4rem;
+    font-weight: 700;
+}
+
+.bottom-btn {
+    position: absolute;
+    bottom: 20%;
+}
+
+.bottom-btn button {
+    background-color: var(--light-blue);
+    padding: 0 80px;
+    border-radius: 10px;
+    border: none;
+}
+
+.bottom-btn button:hover {
+    cursor: pointer;
+}

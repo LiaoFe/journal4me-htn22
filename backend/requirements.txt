@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+pony
+psycopg2-binary
+cohere

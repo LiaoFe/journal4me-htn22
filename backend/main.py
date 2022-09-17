@@ -1,21 +1,39 @@
 from fastapi import FastAPI
+from pymongo import MongoClient
+from pymongo.server_api import ServerApi
+
+import os
+from dotenv import load_dotenv
 
 # importing nlp dependencies
 import cohere
 import cohere.classify as co_classify
-import dotenv
 import os
 import numpy as np
 import pandas as pd
 
-# using dotenv
-dotenv.load_dotenv()
+
+load_dotenv()
 
 # fetching api key for cohere
 co_client = cohere.Client(f'{os.getenv("COHERE_KEY")}')
 
 # using fast api
 app = FastAPI()
+
+password = os.environ.get('PASSWORD')
+
+client = MongoClient(f'mongodb+srv://voicejournalhtn22:{password}@cluster0.0wr1fib.mongodb.net/?retryWrites=true&w=majority')
+db = client.test
+collection = db.testing
+
+@app.get("/upload")
+def read_root():
+    x = collection.insert_one({"Hello": "World"}).inserted_id
+
+    return {"Hello": "World"}
+
+
 
 # root dir
 @app.get("/")
