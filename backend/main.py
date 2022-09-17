@@ -5,19 +5,17 @@ from pymongo.server_api import ServerApi
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
-
-
 # importing nlp dependencies
 import cohere
 import cohere.classify as co_classify
-import dotenv
 import os
 import numpy as np
 
-# using dotenv
-dotenv.load_dotenv()
 
+load_dotenv()
+
+# using fast api
+app = FastAPI()
 
 password = os.environ.get('PASSWORD')
 
@@ -31,8 +29,7 @@ def read_root():
 
     return {"Hello": "World"}
 
-# using fast api
-app = FastAPI()
+
 
 # root dir
 @app.get("/")
