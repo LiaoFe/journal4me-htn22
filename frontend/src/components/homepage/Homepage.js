@@ -8,10 +8,12 @@ import { Link } from 'react-router-dom';
 function HomePage() {
     return (
         <div className="container-home">
-            <div class="header">
+            <div className="header">
                 <Link to='/'>homepage</Link>
                 <Link to='/entries'>entries</Link>
                 <Link to='/recordnow'>record now</Link>
+                <Link to='/resources'>resources</Link>
+
             </div>
             <div className="title">
                 welcome back
