@@ -51,7 +51,7 @@
 }
 
 .btn-record button {
-    background-color: #F3EA72;
+    background-color: #EAEB14;
     padding: 20px 70px !important;
     border-radius: 10px;
     border: none;
@@ -70,25 +70,23 @@
     color: #D06312;
     font-size: 1.3rem;
     width: 40rem;
+    font-weight: 700;
 }
 
-<<<<<<< HEAD
-#start:focus, #end:focus, #sub:focus {
-    background-color: #D0C212;
-=======
+
 #start, #end, #sub {
-    background-color: #0f6672;
->>>>>>> 48591063a20024877cbd88d023923ad7a017ada1
+    background-color: #F9A012;
 }
 
 #start-alt, #end-alt, #sub-alt {
-    background-color: #13363b;
+    background-color: #D88706;
 }
 
 .processing {
     grid-row: 2;
     color: #D06312;
     font-size: 1.5rem;
+    font-weight: 700;
 }
 
 .waves1 {
