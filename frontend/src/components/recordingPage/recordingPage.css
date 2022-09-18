@@ -71,6 +71,7 @@
     font-size: 1.3rem;
     width: 40rem;
     font-weight: 700;
+    z-index: 5;
 }
 
 #start, #end, #sub {
@@ -90,6 +91,7 @@
     color: #D06312;
     font-size: 1.5rem;
     font-weight: 700;
+    z-index: 5;
 }
 
 .waves1 {

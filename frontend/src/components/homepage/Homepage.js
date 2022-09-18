@@ -12,8 +12,7 @@ function HomePage() {
                 <Link to='/'>homepage</Link>
                 <Link to='/entries'>entries</Link>
                 <Link to='/recordnow'>record now</Link>
-                <Link to='/resources'>resources</Link>
-
+                {/* <Link to='/resources'>resources</Link> */}
             </div>
             <div className="title">
                 welcome back
