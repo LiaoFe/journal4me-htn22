@@ -10,6 +10,7 @@ const Entry = () => {
                 // put the title here
             }
         </div>
+      
     </div>
   )
 }
