@@ -1,0 +1,69 @@
+:root {
+    --bg-green: #B2F2C3;
+    --font-blue: #2F7E9A;
+    --light-blue: #67B0CA;
+    padding: 0%;
+    margin: 0%;
+   
+        height: 100%;
+        width: 100%;
+    
+}
+
+.recording-body {
+    background-color: var(--bg-green);
+    display: flex;
+    justify-content: center;
+    height: 100vh;       
+}
+
+audio {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+}
+
+.recording-container {
+    display: flex !important;
+    justify-content: center;
+    display: flex;
+    gap: 30px;
+}
+
+.recording-container a {
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.recording-container a:hover {
+    text-decoration: underline;
+}
+
+.btn-record {
+    display: flex;
+    gap: 30px;
+    position: absolute;
+    left: 14rem;
+    top: 50%;
+}
+
+.btn-record button {
+    background-color: var(--light-blue);
+    padding: 20px 80px !important;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.btn-record button:hover {
+    cursor: pointer;
+}
+
+.transcript {
+    position: absolute;
+    top: 50%;
+}

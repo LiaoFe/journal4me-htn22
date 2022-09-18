@@ -1,9 +1,10 @@
 
-    import MicRecorder from "mic-recorder-to-mp3"
+import MicRecorder from "mic-recorder-to-mp3"
 import { useEffect, useState, useRef } from "react"
 import axios from "axios"
 import play from "../homepage/play.svg"
 import { Link } from 'react-router-dom';
+import './recordingPage.css';
 
   
 
@@ -164,51 +165,47 @@ const RecordingPage = () => {
 
 
   return (
-    <div>
-        <Link to='/'>homepage</Link>
-                <Link to='/entries'>entries</Link>
-                <Link to='/recordnow'>record now</Link>
-    <audio ref={audioPlayer} src={blobURL} controls='controls' /> 
+    <div className="recording-body">
       <div>
-      
-        <button disabled={isRecording} onClick={startRecording}>
-          START
-        </button>
-        <button disabled={!isRecording} onClick={stopRecording}>
-          STOP
-        </button>
-        <button onClick={submitTranscriptionHandler}>SUBMIT</button>
-
-<div className="row">
-        <div className="bottom-btn">
-                <button onClick={playButton}>
-                    <img src={play} alt="Play Button" height='50' width={'150'}/>
-                </button>
-            </div>
-    {/*     <div className="bottom-btn">
-                <button onClick={submitTranscriptionHandler}>
-                    <img src={play} alt="Play Button" height='50' width={'150'}/>
-                </button>
-            </div> */}
-            </div>
-      </div>
-
-      
-               
-       
-{/* text being processed */}
-      {transcriptData.status === "completed" ? (
-        <div>
-        <p>{transcript}</p>
-        <br></br>
-        <p>DEfdsEZ</p>
-        <br></br>
-        <p>{summary}</p>
-        
+        <div className="recording-container">
+          <Link to='/'>homepage</Link>
+          <Link to='/entries'>entries</Link>
+          <Link to='/recordnow'>record now</Link>
         </div>
-      ) : (
-        <p>{transcriptData.status}</p>
-      )}
+          <audio ref={audioPlayer} src={blobURL} controls='controls' /> 
+          
+          <div>
+            <div className="btn-record">
+              <button disabled={isRecording} onClick={startRecording}>
+                START
+              </button>
+              <button disabled={!isRecording} onClick={stopRecording}>
+                STOP
+              </button>
+              <button onClick={submitTranscriptionHandler}>SUBMIT</button>
+            </div>
+
+            <div className="row">
+                    {/* <div className="bottom-btn">
+                            <button onClick={playButton}>
+                                <img src={play} alt="Play Button" height='50' width={'150'}/>
+                            </button>
+                        </div> */}
+                {/*     <div className="bottom-btn">
+                            <button onClick={submitTranscriptionHandler}>
+                                <img src={play} alt="Play Button" height='50' width={'150'}/>
+                            </button>
+                        </div> */}
+            </div>
+          </div>
+          
+          {/* text being processed */}
+          {transcriptData.status === "completed" ? (
+            <p className="transcript">{transcript}</p>
+          ) : (
+            <p>{transcriptData.status}</p>
+          )}
+      </div>
     </div>
   )
   
