@@ -7,6 +7,10 @@ import axios from "axios"
 import { Link } from 'react-router-dom';
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> c7e0fef88c42889dff5953cb72e233416fa9c986
 function Entries() {
 
     let [data, setData] = useState([])
