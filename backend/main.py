@@ -72,13 +72,14 @@ async def analyze_transcript(transcript : str, summary : str):
     )
     except:
         print("Error with Cohere")        
-    # # vector encoding of happy and sad
+    # vector encoding of happy and sad
     
     try:
         response_labels = response.classifications[0].labels
         happiness_encoding = ([response_labels['happy'].confidence, response_labels['sad'].confidence])
     except:
         print('error w cohere 2')
+
     today = date.today()
 
     # // NOTE: this information will be added to the database
@@ -93,55 +94,3 @@ async def analyze_transcript(transcript : str, summary : str):
     x = collection.insert_one(result)
 
     return "facts"
-
-
-
-# summarizes the text
-# NOTE: NEED TO FIX THIS SHT
-@app.post('/summarize_transcript/')
-async def summarize__transcript(transcript : str):
-    prompt = f'''"Today, I walked my sibling to school. It was a relaxing walk. I hope to do it as much as I can."
-        In summary: "A highlight of today was walking my sibling"
-
-        "When I ran on the field, I tripped and got a bruise, it hurt quite a bit."
-        In summary:"I got a bruise from falling"
-
-        "{transcript}"
-        In summary:"'''
-    n_generations = 5
-
-    prediction = co_client.generate(
-        model = 'large', 
-        prompt = prompt, 
-        return_likelihoods = 'GENERATION', 
-        stop_sequences = ['"'], 
-        max_tokens = 50,
-        temperature = 0.7, 
-        num_generations = n_generations, 
-        k = 0,
-        p = 0.75
-    )
-
-    gens = []
-    likelihoods = []
-    for gen in prediction.generations:
-        gens.append(gen.text)
-
-        sum_likelihood = 0
-        for t in gen.token_likelihoods:
-            sum_likelihood += t.likelihood
-        # Get sum of likelihoods
-        likelihoods.append(sum_likelihood)
-
-    pd.options.display.max_colwidth = 200
-    # Create a dataframe for the generated sentences and their likelihood scores
-    df = pd.DataFrame({'generation':gens, 'likelihood': likelihoods})
-    # Drop duplicates
-    df = df.drop_duplicates(subset=['generation'])
-    # Sort by highest sum likelihood
-    df = df.sort_values('likelihood', ascending=False, ignore_index=True)
-
-    result = df['generation'][0]
-    result = result[0 : max(0, len(result) - 2)]
-
-    return result
