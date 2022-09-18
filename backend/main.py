@@ -12,6 +12,8 @@ import os
 import numpy as np
 import pandas as pd
 
+from datetime import date
+
 
 load_dotenv()
 
@@ -44,52 +46,63 @@ async def read_root():
 
 # analyzes the text to determine the mood from the text
 # prod: vector for [happy transcript, sad transcript] 
-@app.post('/analyze_speech2txt/')
-def analyze_speech2txt(speech2txt : str):
+@app.get('/sheesh/')
+def analyze_transcript(transcript : str, summary : str):
     # happiness vector
     day_decoding = ['happy', 'sad']
 
     # classifying the transcript
-    response = co_client.classify(
-        inputs = [f"{speech2txt}"],
-        examples = [
-            co_classify.Example('My friend made me smile today', 'happy'),
-            co_classify.Example('My family took me out today', 'happy'),
-            co_classify.Example('Today my cats gave me a lick', 'happy'), 
-            co_classify.Example('I went to the park, but it was rainy and stormy', 'sad'),
-            co_classify.Example('At school, I won an award', 'happy'),
-            co_classify.Example('Today, some bullying happened at my school. I feel bad for that student', 'sad'),
-            co_classify.Example('I worked hard today, but it was all worth it', 'happy'),
-            co_classify.Example('I worked too hard today, work was really rough', 'sad'),
-            co_classify.Example('I was not able to win an award today, but my friend won something', 'happy'),
-            co_classify.Example("A crime happened at my neighbor's home", 'sad'),
-            co_classify.Example('I saw a cat on the street, I wish I could have brought it home', 'sad'),
-            co_classify.Example("I met one of my idols today!", 'happy')
-        ]
+    try:
+        response = co_client.classify(
+            inputs = [f"{transcript}"],
+            examples = [
+                co_classify.Example('My friend made me smile today', 'happy'),
+                co_classify.Example('My family took me out today', 'happy'),
+                co_classify.Example('Today my cats gave me a lick', 'happy'), 
+                co_classify.Example('I went to the park, but it was rainy and stormy', 'sad'),
+                co_classify.Example('At school, I won an award', 'happy'),
+                co_classify.Example('Today, some bullying happened at my school. I feel bad for that student', 'sad'),
+                co_classify.Example('I worked hard today, but it was all worth it', 'happy'),
+                co_classify.Example('I worked too hard today, work was really rough', 'sad'),
+                co_classify.Example('I was not able to win an award today, but my friend won something', 'happy'),
+                co_classify.Example("A crime happened at my neighbor's home", 'sad'),
+                co_classify.Example('I saw a cat on the street, I wish I could have brought it home', 'sad'),
+                co_classify.Example("I met one of my idols today!", 'happy')
+            ]
     )
-
+    except:
+        print("Error with Cohere")        
     # vector encoding of happy and sad
     response_labels = response.classifications[0].labels
     happiness_encoding = ([response_labels['happy'].confidence, response_labels['sad'].confidence])
 
+    today = date.today()
+
     # // NOTE: this information will be added to the database
     result = { 
-        'speech': speech2txt,
-        'rating': day_decoding[np.argmax(happiness_encoding)] }
+        'speech': transcript,
+        'summary' : summary,
+        'rating': day_decoding[np.argmax(happiness_encoding)],
+        'date' : today
+         }
+    
+    x = collection.insert_one(result)
 
-    return result
+    return x
+
+
 
 # summarizes the text
 # NOTE: NEED TO FIX THIS SHT
-@app.post('/summarize_speech2txt/')
-async def summarize__speech2txt(speech2txt : str):
+@app.post('/summarize_transcript/')
+async def summarize__transcript(transcript : str):
     prompt = f'''"Today, I walked my sibling to school. It was a relaxing walk. I hope to do it as much as I can."
         In summary: "A highlight of today was walking my sibling"
 
         "When I ran on the field, I tripped and got a bruise, it hurt quite a bit."
         In summary:"I got a bruise from falling"
 
-        "{speech2txt}"
+        "{transcript}"
         In summary:"'''
     n_generations = 5
 
