@@ -108,7 +108,13 @@ async def analyze_transcript(transcript : str, summary : str):
     
     try:
         response_labels = response.classifications[0].labels
-        happiness_encoding = ([response_labels['happy'].confidence, response_labels['sad'].confidence])
+        happiness_encoding = ([
+            response_labels['miserable'].confidence, 
+            response_labels['sad'].confidence, 
+            response_labels['neutral'].confidence, 
+            response_labels['happy'].confidence, 
+            response_labels['ecstatic'].confidence
+        ])
     except:
         print('error w cohere 2')
 
