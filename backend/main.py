@@ -7,6 +7,7 @@ from pymongo.server_api import ServerApi
 import os
 from dotenv import load_dotenv
 
+import random
 # importing nlp dependencies
 import cohere
 import cohere.classify as co_classify
@@ -102,6 +103,7 @@ async def analyze_transcript(transcript : str, summary : str):
 
     # // NOTE: this information will be added to the database
     result = { 
+        '_id' : str(random.randint(0,90000000)),
         'speech': transcript,
         'summary' : summary,
     
@@ -169,12 +171,8 @@ async def summarize__transcript(transcript : str):
 
 @app.get("/letsgetthisbread")
 async def read_root():
-    info = collection.find({})
-    raw_info = dumps(info)
-    c = 0
-    for i in range(len(raw_info)):
-        if raw_info[i] == ':':
-            c += 1
-    print(c)
-    return raw_info
+    info = list(collection.find({}))
+    
+
+    return info
 
