@@ -73,9 +73,14 @@
     font-weight: 700;
 }
 
+<<<<<<< HEAD
 
 #start, #end, #sub {
     background-color: #F9A012;
+=======
+#start, #end, #sub {
+    background-color: #0f6672;
+>>>>>>> 33f3f94a5d6d686a418b66023538d8fbd819ef65
 }
 
 #start-alt, #end-alt, #sub-alt {
