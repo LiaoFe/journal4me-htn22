@@ -120,7 +120,7 @@ async def analyze_transcript(transcript : str, summary : str):
         'speech': transcript,
         'summary' : summary,
     
-        'rating': np.argmax(happiness_encoding),
+        'rating': int(np.argmax(happiness_encoding)),
         'date' : str(today)
          }
     
