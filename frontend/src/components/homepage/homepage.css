@@ -80,3 +80,13 @@
 .waves .shape-fill {
     fill: var(--bg-green);
 }
+
+@media screen and (max-width: 600px) {
+    .header a {
+        font-size: 1rem;
+    }
+    
+    .title {
+        font-size: 2rem;
+    }
+}

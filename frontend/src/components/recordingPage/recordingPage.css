@@ -117,3 +117,19 @@
 .z-index {
     z-index: 5;
 }
+
+@media screen and (max-width: 600px) {
+    .recording-container a {
+        font-size: 1rem;
+    }
+    
+    .title {
+        font-size: 2rem;
+    }
+
+    .btn-record {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }  
+}
