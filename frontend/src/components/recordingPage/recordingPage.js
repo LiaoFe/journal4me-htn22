@@ -61,6 +61,20 @@ const RecordingPage = () => {
   const [transcript, setTranscript] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
+  const update =  async () => {
+    await axios.post('http://127.0.0.1:8000/sheesh', JSON.stringify({
+    'transcript': 'Helllooooooo',
+    'lastName': 'xD'
+  }))
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  
+}
+
   // Upload the Audio File and retrieve the Upload URL
   useEffect(() => {
     if (audioFile) {
@@ -107,6 +121,7 @@ const RecordingPage = () => {
         setTranscript(transcriptData.text)
 
         clearInterval(interval)
+        update()
       }
     }, 1000)
     return () => clearInterval(interval)
