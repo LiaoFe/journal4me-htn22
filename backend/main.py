@@ -70,7 +70,7 @@ class Data(BaseModel):
     summary : str
 # analyzes the text to determine the mood from the text
 # prod: vector for [happy transcript, sad transcript] 
-@app.post('/sheesh/')
+@app.post('/sheesh')
 async def analyze_transcript(data: Data):
     # happiness vector
     day_decoding = ['miserable', 'sad', 'neutral', 'happy', 'ecstatic']

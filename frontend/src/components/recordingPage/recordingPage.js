@@ -75,17 +75,16 @@ const RecordingPage = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const update =  async () => {
-    await axios.post('http://127.0.0.1:8000/sheesh', JSON.stringify({
-    'transcript': 'Helllooooooo',
-    'lastName': 'xD'
-  }))
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-  
+
+    axios({
+      method: 'post',
+      url: 'http://127.0.0.1:8000/sheesh',
+      data: {
+        transcript: transcript,
+        summary: 'hi'
+      }
+    });
+
 }
 
   // Upload the Audio File and retrieve the Upload URL
