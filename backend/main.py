@@ -22,6 +22,8 @@ from pydantic import BaseModel
 
 origins = [
     "http://localhost:3000",
+    "http://localhost:3000/recordnow",
+    "http://localhost:3000/entries",
     "http://127.0.0.1:8000",
 ]
 
