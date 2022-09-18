@@ -139,9 +139,6 @@ async def analyze_transcript(data: Data):
     return result
 
 
-
-
-
 # summarizes the text
 # NOTE: NEED TO FIX THIS SHT
 @app.post('/summarize_transcript/')
