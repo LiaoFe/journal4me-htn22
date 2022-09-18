@@ -64,10 +64,10 @@ const RecordingPage = () => {
   const update =  async () => {
     axios({
       method: 'post',
-      url: '/login',
+      url: 'http://127.0.0.1:8000/sheesh',
       data: {
-        firstName: 'Finn',
-        lastName: 'Williams'
+        transcript: transcript,
+        summary: 'hi'
       }
     });
 }
