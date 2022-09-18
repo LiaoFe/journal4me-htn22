@@ -9,11 +9,12 @@ import './recordingPage.css';
   
 
 
+
   // Set AssemblyAI Axios Header
   const assembly = axios.create({
     baseURL: "https://api.assemblyai.com/v2",
     headers: {
-        authorization: "ec298ba669bd4ee88ec7ad7c46a803fd",
+        authorization: "c001e8182c2c4da59fd93830ebf22965",
         "content-type": "application/json",
     },
 });
@@ -73,6 +74,20 @@ const RecordingPage = () => {
 
   const [isLoading, setIsLoading] = useState(false)
 
+  const update =  async () => {
+    await axios.post('http://127.0.0.1:8000/sheesh', JSON.stringify({
+    'transcript': 'Helllooooooo',
+    'lastName': 'xD'
+  }))
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  
+}
+
   // Upload the Audio File and retrieve the Upload URL
   useEffect(() => {
     if (audioFile) {
@@ -120,6 +135,7 @@ const RecordingPage = () => {
         setTranscript(transcriptData.text)
         setSummary(transcriptData.chapters)
         clearInterval(interval)
+        update()
       }
     }, 1000)
     return () => clearInterval(interval)
