@@ -68,25 +68,38 @@ async def read_root():
 @app.post('/sheesh/')
 async def analyze_transcript(transcript : str, summary : str):
     # happiness vector
-    day_decoding = ['happy', 'sad']
+    day_decoding = ['miserable', 'sad', 'neutral', 'happy', 'ecstatic']
 
     # classifying the transcript
     try:
         response = co_client.classify(
             inputs = [f"{transcript}"],
             examples = [
-                co_classify.Example('My friend made me smile today', 'happy'),
-                co_classify.Example('My family took me out today', 'happy'),
-                co_classify.Example('Today my cats gave me a lick', 'happy'), 
-                co_classify.Example('I went to the park, but it was rainy and stormy', 'sad'),
-                co_classify.Example('At school, I won an award', 'happy'),
-                co_classify.Example('Today, some bullying happened at my school. I feel bad for that student', 'sad'),
-                co_classify.Example('I worked hard today, but it was all worth it', 'happy'),
-                co_classify.Example('I worked too hard today, work was really rough', 'sad'),
-                co_classify.Example('I was not able to win an award today, but my friend won something', 'happy'),
-                co_classify.Example("A crime happened at my neighbor's home", 'sad'),
-                co_classify.Example('I saw a cat on the street, I wish I could have brought it home', 'sad'),
-                co_classify.Example("I met one of my idols today!", 'happy')
+                co_classify.Example('My grandmother was tragically hit by a car yesterday.', 'miserable'),
+                co_classify.Example("I'm feeling so depressed I think I'm going to kill myself.", 'miserable'),
+                co_classify.Example("My girlfriend has been cheating on me for the past 5 years.", 'miserable'),
+                co_classify.Example("I feel lonely, I hate isolation.", 'miserable'),
+                co_classify.Example("My doctor told me I only have 1 week to live.", 'miserable'),
+                co_classify.Example('I dropped my food on the ground by accident.', 'sad'),
+                co_classify.Example('I lost my sock this morning', 'sad'),
+                co_classify.Example('I cracked the screen of my phone.', 'sad'),
+                co_classify.Example('My friend accidentally sat on my laptop', 'sad'),
+                co_classify.Example('I stubbed my toe on my bed', 'sad'),
+                co_classify.Example('I ate an apple today.', 'neutral'),
+                co_classify.Example('She put the wrapper in the garbage.', 'neutral'),
+                co_classify.Example('I washed my shirt before going to the mall.', 'neutral'),
+                co_classify.Example('He got out of the shower at 10:00 pm.', 'neutral'),
+                co_classify.Example('Jerry peeled an orange.', 'neutral'),
+                co_classify.Example('The party was super fun.', 'happy'),
+                co_classify.Example('We were able to create a successful project', 'happy'),
+                co_classify.Example('I aced all my quizzes.', 'happy'),
+                co_classify.Example('My friends are super caring and motivate me to be the best.', 'happy'),
+                co_classify.Example('Today was a great day.', 'happy'),
+                co_classify.Example('I won the lottery three times in a row.', 'ecstatic'),
+                co_classify.Example('I found the love of my life.', 'ecstatic'),
+                co_classify.Example('I achieved all my goals and dreams.', 'ecstatic'),
+                co_classify.Example('I am living my best life and love myself.', 'ecstatic'),
+                co_classify.Example('I have a wonderful family and amazing friends.', 'ecstatic'),
             ]
     )
     except:
@@ -107,7 +120,7 @@ async def analyze_transcript(transcript : str, summary : str):
         'speech': transcript,
         'summary' : summary,
     
-        'rating': day_decoding[np.argmax(happiness_encoding)],
+        'rating': np.argmax(happiness_encoding),
         'date' : str(today)
          }
     
@@ -173,6 +186,5 @@ async def summarize__transcript(transcript : str):
 async def read_root():
     info = list(collection.find({}))
     
-
     return info
 
