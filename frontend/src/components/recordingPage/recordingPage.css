@@ -68,8 +68,12 @@
     width: 40rem;
 }
 
-#start:focus, #end:focus, #sub:focus {
+#start, #end, #sub {
     background-color: #0f6672;
+}
+
+#start-alt, #end-alt, #sub-alt {
+    background-color: #13363b;
 }
 
 .processing {

@@ -21,7 +21,7 @@ import './recordingPage.css';
 assembly
     .post("/transcript", {
         audio_url: "https://bit.ly/3rBnQ8i",
-        auto_chapters: true,
+       
     })
     .then((res) => console.log(res.data))
     .catch((err) => console.error(err));
@@ -161,8 +161,7 @@ const RecordingPage = () => {
     }
     else {
          stopRecording();
-      submitTranscriptionHandler();
-      submitTranscriptionHandler();
+   
       console.log(transcript.data);
      /*    
         
@@ -191,10 +190,10 @@ const RecordingPage = () => {
 
       <div>
         <div className="btn-record">
-          <button id="start" disabled={isRecording} onClick={startRecording}>
+          <button id={!isRecording ? "start" : "start-alt"} disabled={isRecording} onClick={startRecording}>
             START
           </button>
-          <button id="end" disabled={!isRecording} onClick={stopRecording}>
+          <button id={isRecording ? "end" : "end-alt"} disabled={!isRecording} onClick={stopRecording}>
             STOP
           </button>
           <button id="sub" onClick={submitTranscriptionHandler}>SUBMIT</button>
