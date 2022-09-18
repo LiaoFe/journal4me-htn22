@@ -5,15 +5,26 @@ import axios from "axios"
 import play from "../homepage/play.svg"
 import { Link } from 'react-router-dom';
 import './recordingPage.css';
-// Set AssemblyAI Axios Header
-const assembly = axios.create({
+
+  
+
+
+
+  // Set AssemblyAI Axios Header
+  const assembly = axios.create({
     baseURL: "https://api.assemblyai.com/v2",
     headers: {
-      authorization: "c001e8182c2c4da59fd93830ebf22965",
-      "content-type": "application/json",
-      "transfer-encoding": "chunked",
+        authorization: "c001e8182c2c4da59fd93830ebf22965",
+        "content-type": "application/json",
     },
-  })
+});
+assembly
+    .post("/transcript", {
+        audio_url: "https://bit.ly/3rBnQ8i",
+       
+    })
+    .then((res) => console.log(res.data))
+    .catch((err) => console.error(err));
 
 const RecordingPage = () => {
   // Mic-Recorder-To-MP3
@@ -59,6 +70,8 @@ const RecordingPage = () => {
   const [transcriptID, setTranscriptID] = useState("")
   const [transcriptData, setTranscriptData] = useState("")
   const [transcript, setTranscript] = useState("")
+  const [summary, setSummary] = useState("")
+
   const [isLoading, setIsLoading] = useState(false)
 
   const update =  async () => {
@@ -94,6 +107,7 @@ const RecordingPage = () => {
         checkStatusHandler()
       })
       .catch((err) => console.error(err))
+      console.log("submitted");
   }
 
   // Check the status of the Transcript
@@ -116,7 +130,7 @@ const RecordingPage = () => {
       } else {
         setIsLoading(false)
         setTranscript(transcriptData.text)
-
+        setSummary(transcriptData.chapters)
         clearInterval(interval)
         update()
       }
@@ -124,6 +138,41 @@ const RecordingPage = () => {
     return () => clearInterval(interval)
   },)
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (transcriptData.status !== "completed" && isLoading) {
+        checkStatusHandler()
+      } else {
+        setIsLoading(false)
+        setTranscript(transcriptData.text)
+
+        clearInterval(interval)
+      }
+    }, 1000)
+    return () => clearInterval(interval)
+  }, )
+
+  const playButton = async () => {
+    if (!isRecording){
+        startRecording();
+    }
+    else {
+         stopRecording();
+      submitTranscriptionHandler();
+      submitTranscriptionHandler();
+      console.log(transcript.data);
+     /*    
+        
+         try{
+            return await stopRecording().then((res) => {submitTranscriptionHandler();});        
+
+        }
+        catch (error){
+            console.log(error);
+        } */
+    }
+  
+}
 
   return (
     <div className="recording-body">
