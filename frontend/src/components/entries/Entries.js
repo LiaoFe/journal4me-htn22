@@ -5,7 +5,7 @@ import './entry/Entry';
 function Entries() {
     return (
         <div className="container-entries">
-           
+            <Entry />
         </div>
     )
 }

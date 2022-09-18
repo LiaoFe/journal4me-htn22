@@ -21,7 +21,7 @@ import './recordingPage.css';
 assembly
     .post("/transcript", {
         audio_url: "https://bit.ly/3rBnQ8i",
-       
+        auto_chapters: true,
     })
     .then((res) => console.log(res.data))
     .catch((err) => console.error(err));
@@ -75,14 +75,17 @@ const RecordingPage = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const update =  async () => {
-    axios({
-      method: 'post',
-      url: '/login',
-      data: {
-        firstName: 'Finn',
-        lastName: 'Williams'
-      }
-    });
+    await axios.post('http://127.0.0.1:8000/sheesh', JSON.stringify({
+    'transcript': 'Helllooooooo',
+    'lastName': 'xD'
+  }))
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  
 }
 
   // Upload the Audio File and retrieve the Upload URL
