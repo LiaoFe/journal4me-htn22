@@ -14,17 +14,11 @@ import './recordingPage.css';
   const assembly = axios.create({
     baseURL: "https://api.assemblyai.com/v2",
     headers: {
-        authorization: "c001e8182c2c4da59fd93830ebf22965",
-        "content-type": "application/json",
+      authorization: "ec298ba669bd4ee88ec7ad7c46a803fd",
+      "content-type": "application/json",
+      "transfer-encoding": "chunked",
     },
-});
-assembly
-    .post("/transcript", {
-        audio_url: "https://bit.ly/3rBnQ8i",
-       
-    })
-    .then((res) => console.log(res.data))
-    .catch((err) => console.error(err));
+  })
 
 const RecordingPage = () => {
   // Mic-Recorder-To-MP3
@@ -70,22 +64,7 @@ const RecordingPage = () => {
   const [transcriptID, setTranscriptID] = useState("")
   const [transcriptData, setTranscriptData] = useState("")
   const [transcript, setTranscript] = useState("")
-  const [summary, setSummary] = useState("")
-
   const [isLoading, setIsLoading] = useState(false)
-
-  const update =  async () => {
-
-    axios({
-      method: 'post',
-      url: 'http://127.0.0.1:8000/sheesh',
-      data: {
-        transcript: transcript,
-        summary: 'hi'
-      }
-    });
-
-}
 
   // Upload the Audio File and retrieve the Upload URL
   useEffect(() => {
@@ -109,7 +88,6 @@ const RecordingPage = () => {
         checkStatusHandler()
       })
       .catch((err) => console.error(err))
-      console.log("submitted");
   }
 
   // Check the status of the Transcript
@@ -132,48 +110,12 @@ const RecordingPage = () => {
       } else {
         setIsLoading(false)
         setTranscript(transcriptData.text)
-        setSummary(transcriptData.chapters)
+
         clearInterval(interval)
-        update()
       }
     }, 1000)
     return () => clearInterval(interval)
   },)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (transcriptData.status !== "completed" && isLoading) {
-        checkStatusHandler()
-      } else {
-        setIsLoading(false)
-        setTranscript(transcriptData.text)
-
-        clearInterval(interval)
-      }
-    }, 1000)
-    return () => clearInterval(interval)
-  }, )
-
-  const playButton = async () => {
-    if (!isRecording){
-        startRecording();
-    }
-    else {
-         stopRecording();
-   
-      console.log(transcript.data);
-     /*    
-        
-         try{
-            return await stopRecording().then((res) => {submitTranscriptionHandler();});        
-
-        }
-        catch (error){
-            console.log(error);
-        } */
-    }
-  
-}
 
   return (
     <div className="recording-body">
