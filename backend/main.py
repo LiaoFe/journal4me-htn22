@@ -75,7 +75,7 @@ async def analyze_transcript(transcript : str, summary : str):
     )
     except:
         print("Error with Cohere")        
-    # # vector encoding of happy and sad
+    # vector encoding of happy and sad
     
     try:
         response_labels = response.classifications[0].labels
@@ -96,6 +96,7 @@ async def analyze_transcript(transcript : str, summary : str):
     
     x = collection.insert_one(result)
 
+<<<<<<< HEAD
     return "facts"
 
 
@@ -156,3 +157,4 @@ async def read_root():
     info = collection.find({})
     
     return dumps(info)
+
