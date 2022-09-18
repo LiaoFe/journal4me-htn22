@@ -22,7 +22,7 @@ from pydantic import BaseModel
 
 origins = [
     "http://localhost:3000",
-    "http://localhost:3000/recordnow",
+
     "http://localhost:3000/entries",
     "http://127.0.0.1:8000",
 ]
@@ -40,7 +40,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=[""],
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
@@ -125,13 +125,54 @@ async def analyze_transcript(data: Data):
     except:
         print('error w cohere 2')
 
+    prompt = f'''"At the park, there was a murderer at night and I almost was not able to escape with my life and as a result, I am traumatised"
+In summary: "The park is dangerous at night"
+
+"At the carnival, there was a variety of food to pick from and I was never happier"
+In summary:"Lot's of food makes me happy"
+
+{data.transcript}
+In summary:"'''
+    n_generations = 5
+
+    prediction = co_client.generate(
+        model = 'large', 
+        prompt = prompt, 
+        return_likelihoods = 'GENERATION', 
+        stop_sequences = ['"'], 
+        max_tokens = 50,
+        temperature = 0.7, 
+        num_generations = n_generations, 
+        k = 0,
+        p = 0.75
+    )
+
+    gens = []
+    likelihoods = []
+    for gen in prediction.generations:
+        gens.append(gen.text)
+
+        sum_likelihood = 0
+        for t in gen.token_likelihoods:
+            sum_likelihood += t.likelihood
+        # Get sum of likelihoods
+        likelihoods.append(sum_likelihood)
+
+    pd.options.display.max_colwidth = 200
+    # Create a dataframe for the generated sentences and their likelihood scores
+    df = pd.DataFrame({'generation':gens, 'likelihood': likelihoods})
+    # Drop duplicates
+    df = df.drop_duplicates(subset=['generation'])
+    # Sort by highest sum likelihood
+    df = df.sort_values('likelihood', ascending=False, ignore_index=True)
+
     today = date.today()
 
     # // NOTE: this information will be added to the database
     result = { 
         '_id' : str(random.randint(0,90000000)),
         'speech': data.transcript,
-        'summary' : data.summary,
+        'summary' : df.generation[0].replace("\"", ""),
     
         'rating': int(np.argmax(happiness_encoding)),
         'date' : str(today)
@@ -145,14 +186,14 @@ async def analyze_transcript(data: Data):
 # NOTE: NEED TO FIX THIS SHT
 @app.post('/summarize_transcript/')
 async def summarize__transcript(transcript : str):
-    prompt = f'''"Today, I walked my sibling to school. It was a relaxing walk. I hope to do it as much as I can."
-        In summary: "A highlight of today was walking my sibling"
+    prompt = f'''"At the park, there was a murderer at night and I almost was not able to escape with my life and as a result, I am traumatised"
+In summary: "The park is dangerous at night"
 
-        "When I ran on the field, I tripped and got a bruise, it hurt quite a bit."
-        In summary:"I got a bruise from falling"
+"At the carnival, there was a variety of food to pick from and I was never happier"
+In summary:"Lot's of food makes me happy"
 
-        "{transcript}"
-        In summary:"'''
+{transcript}
+In summary:"'''
     n_generations = 5
 
     prediction = co_client.generate(

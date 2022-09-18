@@ -76,7 +76,7 @@ const RecordingPage = () => {
 
   const update =  async () => {
 
-    axios({
+    await axios({
       method: 'post',
       url: 'http://127.0.0.1:8000/sheesh',
       data: {
