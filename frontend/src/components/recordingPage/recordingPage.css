@@ -62,13 +62,13 @@
 }
 
 .transcript {
-    color: white;
+    color: var(--font-blue);
     border: 1px solid;
     font-size: 1.3rem;
     width: 40rem;
 }
 
 .processing {
-    color: white;
+    color: var(--font-blue);
     font-size: 1.5rem;
 }
