@@ -1,13 +1,21 @@
+
 import React, { useEffect, useState } from 'react';
+
 import "./entries.css";
 import Entry from './entry/Entry';
 import axios from "axios"
 import { Link } from 'react-router-dom';
 
+
+import axios from "axios";
+
+
 function Entries() {
+
     let [data, setData] = useState([])
     const [info, setInfo] = useState()
     const [useModal, setUseModal] = useState(false)
+
 
     useEffect(() => {
         async function fetchData() {
@@ -15,12 +23,14 @@ function Entries() {
                 const res = await axios.get('http://127.0.0.1:8000/letsgetthisbread'); 
                 setData(res.data);
                 console.log(res)
+
             } catch (err) {
                 console.log(err);
             }
         }
         fetchData();
       }, [])
+
 
     data = data.sort((entryA, entryB) => { 
         return new Date(entryA.date) > new Date(entryB.date) ? -1 : 1;
@@ -30,6 +40,7 @@ function Entries() {
         setUseModal(false);
         console.log('clicking')
     }
+
 
     return (
         <>
@@ -44,6 +55,7 @@ function Entries() {
           </div>
         </div>
         <div className="container-entries">
+
             <div className="DEEZNUTS"></div>
         <div className="recording-container">
             <Link to='/'>homepage</Link>
@@ -57,6 +69,7 @@ function Entries() {
                     }) 
                 }
             </div>
+
         </div>
 
         </>

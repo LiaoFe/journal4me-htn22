@@ -23,6 +23,7 @@ const Entry = ({ date, rating, speech, summary, setInfo, setUseModal }) => {
         <div className='recording__title'> 
             { date }
         </div>
+      
     </div>
   )
 }

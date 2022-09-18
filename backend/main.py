@@ -22,6 +22,7 @@ from pydantic import BaseModel
 
 origins = [
     "http://localhost:3000",
+    "http://localhost:3000/recordnow",
     "http://localhost:3000/entries",
     "http://127.0.0.1:8000",
 ]
@@ -47,7 +48,7 @@ password = os.environ.get('PASSWORD')
 
 client = MongoClient(f'mongodb+srv://voicejournalhtn22:{password}@cluster0.0wr1fib.mongodb.net/?retryWrites=true&w=majority',)
 db = client.test
-collection = db.letsgetthisbread
+collection = db.htn2022
 collection2 = db.testing
 
 
