@@ -1,0 +1,10 @@
+:root {
+    --bg-green: #B2F2C3;
+    --font-blue: #2F7E9A;
+    --light-blue: #67B0CA;
+}
+
+.container-entries {
+    background-color: var(--bg-green);
+    height: 100vh;
+}  
