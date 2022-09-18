@@ -18,8 +18,10 @@ import pandas as pd
 from datetime import date
 from bson.json_util import dumps, loads
 
+from pydantic import BaseModel
+
 origins = [
-    "http://localhost",
+    "http://localhost:3000",
     "http://127.0.0.1:8000",
 ]
 
@@ -63,17 +65,20 @@ async def read_root():
         "Running on this localhost"
     }
 
+class Data(BaseModel):
+    transcript: str
+    summary : str
 # analyzes the text to determine the mood from the text
 # prod: vector for [happy transcript, sad transcript] 
-@app.post('/sheesh/')
-async def analyze_transcript(transcript : str, summary : str):
+@app.post('/sheesh')
+async def analyze_transcript(data: Data):
     # happiness vector
     day_decoding = ['miserable', 'sad', 'neutral', 'happy', 'ecstatic']
 
     # classifying the transcript
     try:
         response = co_client.classify(
-            inputs = [f"{transcript}"],
+            inputs = [f"{data.transcript}"],
             examples = [
                 co_classify.Example('My grandmother was tragically hit by a car yesterday.', 'miserable'),
                 co_classify.Example("I'm feeling so depressed I think I'm going to kill myself.", 'miserable'),
@@ -123,8 +128,8 @@ async def analyze_transcript(transcript : str, summary : str):
     # // NOTE: this information will be added to the database
     result = { 
         '_id' : str(random.randint(0,90000000)),
-        'speech': transcript,
-        'summary' : summary,
+        'speech': data.transcript,
+        'summary' : data.summary,
     
         'rating': int(np.argmax(happiness_encoding)),
         'date' : str(today)
@@ -132,9 +137,6 @@ async def analyze_transcript(transcript : str, summary : str):
     
     x = collection.insert_one(result)
     return result
-
-
-
 
 
 # summarizes the text

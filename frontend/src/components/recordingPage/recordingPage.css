@@ -72,8 +72,17 @@
     width: 40rem;
 }
 
+<<<<<<< HEAD
 #start:focus, #end:focus, #sub:focus {
     background-color: #D0C212;
+=======
+#start, #end, #sub {
+    background-color: #0f6672;
+>>>>>>> 48591063a20024877cbd88d023923ad7a017ada1
+}
+
+#start-alt, #end-alt, #sub-alt {
+    background-color: #13363b;
 }
 
 .processing {

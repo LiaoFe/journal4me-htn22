@@ -9,18 +9,19 @@ import './recordingPage.css';
   
 
 
+
   // Set AssemblyAI Axios Header
   const assembly = axios.create({
     baseURL: "https://api.assemblyai.com/v2",
     headers: {
-        authorization: "ec298ba669bd4ee88ec7ad7c46a803fd",
+        authorization: "c001e8182c2c4da59fd93830ebf22965",
         "content-type": "application/json",
     },
 });
 assembly
     .post("/transcript", {
         audio_url: "https://bit.ly/3rBnQ8i",
-        auto_chapters: true,
+       
     })
     .then((res) => console.log(res.data))
     .catch((err) => console.error(err));
@@ -73,6 +74,19 @@ const RecordingPage = () => {
 
   const [isLoading, setIsLoading] = useState(false)
 
+  const update =  async () => {
+
+    axios({
+      method: 'post',
+      url: 'http://127.0.0.1:8000/sheesh',
+      data: {
+        transcript: transcript,
+        summary: 'hi'
+      }
+    });
+
+}
+
   // Upload the Audio File and retrieve the Upload URL
   useEffect(() => {
     if (audioFile) {
@@ -120,6 +134,7 @@ const RecordingPage = () => {
         setTranscript(transcriptData.text)
         setSummary(transcriptData.chapters)
         clearInterval(interval)
+        update()
       }
     }, 1000)
     return () => clearInterval(interval)
@@ -145,8 +160,7 @@ const RecordingPage = () => {
     }
     else {
          stopRecording();
-      submitTranscriptionHandler();
-      submitTranscriptionHandler();
+   
       console.log(transcript.data);
      /*    
         
@@ -175,10 +189,10 @@ const RecordingPage = () => {
 
       <div className="z-index">
         <div className="btn-record">
-          <button id="start" disabled={isRecording} onClick={startRecording}>
+          <button id={!isRecording ? "start" : "start-alt"} disabled={isRecording} onClick={startRecording}>
             START
           </button>
-          <button id="end" disabled={!isRecording} onClick={stopRecording}>
+          <button id={isRecording ? "end" : "end-alt"} disabled={!isRecording} onClick={stopRecording}>
             STOP
           </button>
           <button id="sub" onClick={submitTranscriptionHandler}>SUBMIT</button>
