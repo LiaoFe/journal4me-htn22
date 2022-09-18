@@ -6,15 +6,24 @@ import play from "../homepage/play.svg"
 import { Link } from 'react-router-dom';
 import './recordingPage.css';
 
+  
+
+
   // Set AssemblyAI Axios Header
   const assembly = axios.create({
     baseURL: "https://api.assemblyai.com/v2",
     headers: {
-      authorization: "ec298ba669bd4ee88ec7ad7c46a803fd",
-      "content-type": "RecordingPagelication/json",
-      "transfer-encoding": "chunked",
+        authorization: "ec298ba669bd4ee88ec7ad7c46a803fd",
+        "content-type": "application/json",
     },
-  })
+});
+assembly
+    .post("/transcript", {
+        audio_url: "https://bit.ly/3rBnQ8i",
+        auto_chapters: true,
+    })
+    .then((res) => console.log(res.data))
+    .catch((err) => console.error(err));
 
 const RecordingPage = () => {
   // Mic-Recorder-To-MP3
@@ -60,6 +69,8 @@ const RecordingPage = () => {
   const [transcriptID, setTranscriptID] = useState("")
   const [transcriptData, setTranscriptData] = useState("")
   const [transcript, setTranscript] = useState("")
+  const [summary, setSummary] = useState("")
+
   const [isLoading, setIsLoading] = useState(false)
 
   // Upload the Audio File and retrieve the Upload URL
@@ -107,7 +118,7 @@ const RecordingPage = () => {
       } else {
         setIsLoading(false)
         setTranscript(transcriptData.text)
-
+        setSummary(transcriptData.chapters)
         clearInterval(interval)
       }
     }, 1000)
@@ -137,6 +148,7 @@ const RecordingPage = () => {
          stopRecording();
       submitTranscriptionHandler();
       submitTranscriptionHandler();
+      console.log(transcript.data);
      /*    
         
          try{
@@ -149,6 +161,8 @@ const RecordingPage = () => {
     }
   
 }
+
+
 
   return (
     <div className="recording-body">
@@ -182,6 +196,7 @@ const RecordingPage = () => {
       )}
     </div>
   )
+  
 }
 
 export default RecordingPage
