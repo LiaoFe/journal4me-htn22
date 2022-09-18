@@ -2,17 +2,22 @@ import React from 'react';
 import "./homepage.css";
 import play from './play.svg';
 import grass from './grass.jpg';
+import { Link } from 'react-router-dom';
 
 
 function HomePage() {
     return (
         <div className="container-home">
+            
+                <Link to='/'>homepage</Link>
+                <Link to='/entries'>entries</Link>
+            
             <div className="title">
                 welcome back
             </div>
             <div className="bottom-btn">
                 <button>
-                    <img src={play} alt="Play Button" height='50'/>
+                    <img src={play} alt="Play Button" height='50' width={'150'}/>
                 </button>
             </div>
             <div className="waves">

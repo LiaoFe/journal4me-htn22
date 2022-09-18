@@ -2,6 +2,12 @@
     --bg-green: #B2F2C3;
     --font-blue: #2F7E9A;
     --light-blue: #67B0CA;
+    padding: 0% ;
+    margin: 0%;
+   
+        height: 100%;
+        width: 100%;
+    
 }
 
 .container-home {
@@ -42,13 +48,15 @@
     width: 100%;
     overflow: hidden;
     line-height: 0;
+    padding: 0px;
 }
 
 .waves svg {
     position: relative;
     display: block;
-    width: calc(267% + 1.3px);
+    width:  calc(267% + 1.3px) ;
     height: 500px;
+    
 }
 
 .waves .shape-fill {
