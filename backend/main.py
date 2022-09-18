@@ -25,13 +25,13 @@ app = FastAPI()
 
 password = os.environ.get('PASSWORD')
 
-client = MongoClient(f'mongodb+srv://voicejournalhtn22:{password}@cluster0.0wr1fib.mongodb.net/?retryWrites=true&w=majority')
+client = MongoClient(f'mongodb+srv://voicejournalhtn22:{password}@cluster0.0wr1fib.mongodb.net/?retryWrites=true&w=majority',)
 db = client.test
-collection = db.testing
-
+collection = db.letsgetthisbread
+collection2 = db.testing
 @app.get("/upload")
 def read_root():
-    x = collection.insert_one({"Hello": "World"}).inserted_id
+    x = collection2.insert_one({"Hello": "World"}).inserted_id
 
     return {"Hello": "World"}
 
@@ -46,8 +46,8 @@ async def read_root():
 
 # analyzes the text to determine the mood from the text
 # prod: vector for [happy transcript, sad transcript] 
-@app.get('/sheesh/')
-def analyze_transcript(transcript : str, summary : str):
+@app.post('/sheesh/')
+async def analyze_transcript(transcript : str, summary : str):
     # happiness vector
     day_decoding = ['happy', 'sad']
 
@@ -72,23 +72,27 @@ def analyze_transcript(transcript : str, summary : str):
     )
     except:
         print("Error with Cohere")        
-    # vector encoding of happy and sad
-    response_labels = response.classifications[0].labels
-    happiness_encoding = ([response_labels['happy'].confidence, response_labels['sad'].confidence])
-
+    # # vector encoding of happy and sad
+    
+    try:
+        response_labels = response.classifications[0].labels
+        happiness_encoding = ([response_labels['happy'].confidence, response_labels['sad'].confidence])
+    except:
+        print('error w cohere 2')
     today = date.today()
 
     # // NOTE: this information will be added to the database
     result = { 
         'speech': transcript,
         'summary' : summary,
+    
         'rating': day_decoding[np.argmax(happiness_encoding)],
-        'date' : today
+        'date' : str(today)
          }
     
     x = collection.insert_one(result)
 
-    return x
+    return "facts"
 
 
 
