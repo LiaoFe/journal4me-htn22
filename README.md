@@ -7,7 +7,7 @@ Mental health issues is becoming a more prevalent issue each year. Nearly one in
 ## 🔍 What it does
 journal4me is a journaling app that removes the tediousness of typing out your thoughts. It is well known that journaling can improve one's mental health, but many stray away from the act, intimidated by the monotonous writing involved with jotting down your feelings. With journal4me, all you need to do is speak! The app automatically processes your words and jots them down for you, so that you can rant about your day effortlessly without having to pause and think about how to spell a word or structure a sentence. At the end of your recording, the app even ranks your mood based on what was depicted from your rant using sentiment analysis!
 
-##⚙️ How it was built
+## ⚙️ How it was built
 journal4me was built with the following tools and languages:
 - HTML
 - CSS
