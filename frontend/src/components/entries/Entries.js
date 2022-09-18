@@ -7,7 +7,10 @@ import axios from "axios"
 import { Link } from 'react-router-dom';
 
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> c7e0fef88c42889dff5953cb72e233416fa9c986
 function Entries() {
 
     let [data, setData] = useState([])
@@ -54,11 +57,11 @@ function Entries() {
         </div>
         <div className="container-entries">
 
-            <div className="DEEZNUTS"></div>
         <div className="recording-container">
             <Link to='/'>homepage</Link>
             <Link to='/entries'>entries</Link>
             <Link to='/recordnow'>record now</Link>
+            {/* <Link to='/resources'>resources</Link> */}
         </div>
             <div className='container-entries__box'>
                 {
