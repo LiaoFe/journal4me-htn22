@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 
@@ -15,6 +17,11 @@ import pandas as pd
 from datetime import date
 from bson.json_util import dumps, loads
 
+origins = [
+    "http://localhost",
+    "http://127.0.0.1:8000",
+]
+
 
 load_dotenv()
 
@@ -23,6 +30,14 @@ co_client = cohere.Client(f'{os.getenv("COHERE_KEY")}')
 
 # using fast api
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 password = os.environ.get('PASSWORD')
 
@@ -95,9 +110,9 @@ async def analyze_transcript(transcript : str, summary : str):
          }
     
     x = collection.insert_one(result)
+    return result
 
-<<<<<<< HEAD
-    return "facts"
+
 
 
 
@@ -155,6 +170,11 @@ async def summarize__transcript(transcript : str):
 @app.get("/letsgetthisbread")
 async def read_root():
     info = collection.find({})
-    
-    return dumps(info)
+    raw_info = dumps(info)
+    c = 0
+    for i in range(len(raw_info)):
+        if raw_info[i] == ':':
+            c += 1
+    print(c)
+    return raw_info
 
