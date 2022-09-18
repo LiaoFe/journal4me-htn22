@@ -1,0 +1,74 @@
+:root {
+    --bg-green: #B2F2C3;
+    --font-blue: #2F7E9A;
+    --light-blue: #67B0CA;
+    padding: 0%;
+    margin: 0%;
+   
+        height: 100%;
+        width: 100%;
+    
+}
+
+.recording-body {
+    background-color: var(--bg-green);
+    display: flex;
+    justify-content: center;
+    height: 100vh;   
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr 1fr;
+}
+
+.audio {
+    grid-row: 2;
+    align-self: center;
+    justify-self: center;
+}
+
+.recording-container {
+    display: flex !important;
+    justify-content: center;
+    display: flex;
+    gap: 30px;
+}
+
+.recording-container a {
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.recording-container a:hover {
+    text-decoration: underline;
+}
+
+.btn-record {
+    grid-row: 2;
+}
+
+.btn-record button {
+    background-color: var(--light-blue);
+    padding: 20px 70px !important;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.btn-record button:hover {
+    cursor: pointer;
+}
+
+.transcript {
+    color: white;
+    border: 1px solid;
+    font-size: 1.3rem;
+    width: 40rem;
+}
+
+.processing {
+    color: white;
+    font-size: 1.5rem;
+}
