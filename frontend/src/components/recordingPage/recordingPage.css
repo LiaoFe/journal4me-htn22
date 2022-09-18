@@ -14,13 +14,15 @@
     background-color: var(--bg-green);
     display: flex;
     justify-content: center;
-    height: 100vh;       
+    height: 100vh;   
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr 1fr;
 }
 
-audio {
-    position: absolute;
-    top: 40%;
-    left: 40%;
+.audio {
+    grid-row: 2;
+    align-self: center;
+    justify-self: center;
 }
 
 .recording-container {
@@ -42,16 +44,12 @@ audio {
 }
 
 .btn-record {
-    display: flex;
-    gap: 30px;
-    position: absolute;
-    left: 14rem;
-    top: 50%;
+    grid-row: 2;
 }
 
 .btn-record button {
     background-color: var(--light-blue);
-    padding: 20px 80px !important;
+    padding: 20px 70px !important;
     border-radius: 10px;
     border: none;
     color: white;
@@ -64,6 +62,13 @@ audio {
 }
 
 .transcript {
-    position: absolute;
-    top: 50%;
+    color: white;
+    border: 1px solid;
+    font-size: 1.3rem;
+    width: 40rem;
+}
+
+.processing {
+    color: white;
+    font-size: 1.5rem;
 }
