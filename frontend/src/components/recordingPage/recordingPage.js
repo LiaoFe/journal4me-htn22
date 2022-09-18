@@ -158,7 +158,6 @@ const RecordingPage = () => {
   const playButton = async () => {
     if (!isRecording){
         startRecording();
-        console.log("sheesh");
     }
     else {
          stopRecording();
@@ -178,8 +177,6 @@ const RecordingPage = () => {
   
 }
 
-
-
   return (
     <div className="recording-body">
       <div className="recording-container">
@@ -194,13 +191,13 @@ const RecordingPage = () => {
 
       <div>
         <div className="btn-record">
-          <button disabled={isRecording} onClick={startRecording}>
+          <button id="start" disabled={isRecording} onClick={startRecording}>
             START
           </button>
-          <button disabled={!isRecording} onClick={stopRecording}>
+          <button id="end" disabled={!isRecording} onClick={stopRecording}>
             STOP
           </button>
-          <button onClick={submitTranscriptionHandler}>SUBMIT</button>
+          <button id="sub" onClick={submitTranscriptionHandler}>SUBMIT</button>
         </div>
       </div>
         
