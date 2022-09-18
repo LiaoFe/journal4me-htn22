@@ -1,0 +1,56 @@
+:root {
+    --bg-green: #B2F2C3;
+    --font-blue: #2F7E9A;
+    --light-blue: #67B0CA;
+}
+
+.container-home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('./grass.jpg') no-repeat fixed center/cover;
+}   
+
+.title {
+    color: white;
+    font-size: 4rem;
+    font-weight: 700;
+}
+
+.bottom-btn {
+    position: absolute;
+    bottom: 10%;
+    z-index: 1000;
+}
+
+.bottom-btn button {
+    background-color: var(--light-blue);
+    padding: 0 80px;
+    border-radius: 10px;
+    border: none;
+}
+
+.bottom-btn button:hover {
+    cursor: pointer;
+}
+
+.waves {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.waves svg {
+    position: relative;
+    display: block;
+    width: calc(267% + 1.3px);
+    height: 500px;
+}
+
+.waves .shape-fill {
+    fill: var(--bg-green);
+}
