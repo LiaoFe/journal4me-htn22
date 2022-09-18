@@ -13,6 +13,7 @@ import numpy as np
 import pandas as pd
 
 from datetime import date
+from bson.json_util import dumps, loads
 
 
 load_dotenv()
@@ -29,6 +30,8 @@ client = MongoClient(f'mongodb+srv://voicejournalhtn22:{password}@cluster0.0wr1f
 db = client.test
 collection = db.letsgetthisbread
 collection2 = db.testing
+
+
 @app.get("/upload")
 def read_root():
     x = collection2.insert_one({"Hello": "World"}).inserted_id
@@ -79,6 +82,7 @@ async def analyze_transcript(transcript : str, summary : str):
         happiness_encoding = ([response_labels['happy'].confidence, response_labels['sad'].confidence])
     except:
         print('error w cohere 2')
+
     today = date.today()
 
     # // NOTE: this information will be added to the database
@@ -145,3 +149,10 @@ async def summarize__transcript(transcript : str):
     result = result[0 : max(0, len(result) - 2)]
 
     return result
+
+
+@app.get("/letsgetthisbread")
+async def read_root():
+    info = collection.find({})
+    
+    return dumps(info)
