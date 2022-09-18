@@ -4,7 +4,104 @@
     --light-blue: #67B0CA;
 }
 
+
 .container-entries {
-    background-color: var(--bg-green);
-/*     height: 100vh; */
+    width: 100%;
+
+    background-image: url('http://pm1.narvii.com/6904/1ef7b698643b1eaf072414fa53df8977dda263e0r1-1919-1081v2_uhq.jpg');
+    background-repeat: no-repeat;
+    background-size: auto;   
+    background-attachment: fixed;
 }  
+
+.container-entries__box { 
+    /* width: 100%; */
+    min-height: 100vh;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 60px;
+
+    padding: 100px !important;
+
+   
+  
+}
+
+.DEEZNUTS {
+    height:65px;
+}
+
+/* Modal Styles */
+.modal-background { 
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(255, 255, 255, 0.5);
+    z-index: 5;
+    display: none;
+}
+
+.modal-background_active { 
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(255, 255, 255, 0.5);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-background__modal { 
+    width: 500px;
+    height: 500px;
+    
+    background-color: var(--light-blue);
+    border-radius: 10px;
+    filter: opacity(200);
+    z-index: 20;
+
+    display: none; 
+}
+
+.modal-background__modal_active { 
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    
+    background-color: var(--light-blue);
+    border-radius: 10px;
+    filter: opacity(200);
+    z-index: 20;
+
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.modal-title { 
+    width: 80%;
+    height: 70px; 
+    border-bottom: 5px solid var(--bg-green);
+    text-overflow: ellipsis;
+    color: white;
+    font-size: 2rem;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-body { 
+    width: 80%;
+    height: 70%;
+    background-color: var(--bg-green);
+    margin: 20px;
+    border-radius: 10px;
+    color: black;
+    overflow-y: auto;
+}
+
+.modal-body__txt { 
+    padding: 20px !important; 
+}

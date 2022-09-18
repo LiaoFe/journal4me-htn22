@@ -1,14 +1,27 @@
 import React from 'react'
+import './entry.css'
 
-const Entry = () => {
-    const mood_palette = ['#9BD8DA', '#377173', '#D9D9D9', '#43AC25', '#B2ECA1']
+const Entry = ({ date, rating, speech, summary, setInfo, setUseModal }) => {
+  const mood_palette = ['#B84A62', '#F17B50', '#E8DAAF', '#A8E096', '#00EE5B']
+
+  const openModal = () => { 
+    setInfo({ 
+      date: date,
+      rating: rating,
+      speech: speech,
+      summary: summary,
+    })
+
+    setUseModal(true);
+  }
 
   return (
-    <div className='entry__recording' style={{ backgroundColor:mood_palette[0] }}>
+    <div onClick={ openModal } className='entry__recording' style={{ backgroundColor:mood_palette[rating] }}>
         <div className='recording__title'> 
-            {
-                // put the title here
-            }
+            { summary }
+        </div>
+        <div className='recording__title'> 
+            { date }
         </div>
     </div>
   )

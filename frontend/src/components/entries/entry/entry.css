@@ -1,5 +1,21 @@
 .entry__recording { 
-    width: 200px;
-    height: 75px;
-    
+    /* width: 5em;*/
+    height: 7.5em; 
+    cursor: pointer;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.86;
+    transition: 150ms ease-in-out;
+}
+
+.entry__recording:hover { 
+    opacity: 1;
+}
+
+.recording__title { 
+    font-size: 1.5em;
+    font-family: monospace;
 }
