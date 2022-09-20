@@ -1,4 +1,4 @@
-# voicejournal-htn22
+# journal4me-htn22
 Hack the North 2022, Voice Journal for Mental Health | 2nd Place for Best Use of Co:here
 
 ## 💡 Inspiration
