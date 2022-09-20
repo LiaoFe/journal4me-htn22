@@ -2,7 +2,7 @@ import './App.css';
 import Homepage from './components/homepage/Homepage.js';
 import Entries from './components/entries/Entries.js';
 import RecordingPage from './components/recordingPage/recordingPage';
-import {Route, Routes, BrowserRouter} from "react-router-dom";
+import {Route, Routes } from "react-router-dom";
 import MHResourcesPage from './components/resources/mentalHealthResources';
 
 function App() {

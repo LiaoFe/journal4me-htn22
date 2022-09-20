@@ -2,7 +2,7 @@
 import MicRecorder from "mic-recorder-to-mp3"
 import { useEffect, useState, useRef } from "react"
 import axios from "axios"
-import play from "../homepage/play.svg"
+//import play from "../homepage/play.svg"
 import { Link } from 'react-router-dom';
 import './recordingPage.css';
 
@@ -70,8 +70,8 @@ const RecordingPage = () => {
   const [transcriptID, setTranscriptID] = useState("")
   const [transcriptData, setTranscriptData] = useState("")
   const [transcript, setTranscript] = useState("")
-  const [summary, setSummary] = useState("")
-
+  //const [summary, setSummary] = useState("")
+  
   const [isLoading, setIsLoading] = useState(false)
 
   const update =  async () => {
@@ -132,7 +132,7 @@ const RecordingPage = () => {
       } else {
         setIsLoading(false)
         setTranscript(transcriptData.text)
-        setSummary(transcriptData.chapters)
+       
         clearInterval(interval)
         update()
       }
@@ -154,7 +154,7 @@ const RecordingPage = () => {
     return () => clearInterval(interval)
   }, )
 
-  const playButton = async () => {
+  /* const playButton = async () => {
     if (!isRecording){
         startRecording();
     }
@@ -162,7 +162,7 @@ const RecordingPage = () => {
          stopRecording();
    
       console.log(transcript.data);
-     /*    
+          
         
          try{
             return await stopRecording().then((res) => {submitTranscriptionHandler();});        
@@ -170,10 +170,10 @@ const RecordingPage = () => {
         }
         catch (error){
             console.log(error);
-        } */
+        } 
     }
   
-}
+} */
 
   return (
     <div className="recording-body">
