@@ -1,5 +1,5 @@
 # voicejournal-htn22
-Hack the North 2022, Voice Journal for Mental Health
+Hack the North 2022, Voice Journal for Mental Health | 2nd Place for Best Use of Co:here
 
 ## 💡 Inspiration
 Mental health issues is becoming a more prevalent issue each year. Nearly one in five U.S. adults live with a mental illness, but less than 20% of people actually seek mental health treatment. Furthermore, 47% of Americans believe that seeking therapy is a sign of weakness. Our goal with journal4me is to provide an outlet for people to speak their thoughts; to let it all out.
