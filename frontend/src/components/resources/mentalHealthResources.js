@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+//import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
-import background from './MHResourcesBG.jpg';
+//import background from './MHResourcesBG.jpg';
 import './resources.css';
 
 function MHResourcesPage() {

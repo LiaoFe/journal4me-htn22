@@ -1,7 +1,7 @@
 import React from 'react';
 import "./homepage.css";
 import play from './play.svg';
-import grass from './grass.jpg';
+//import grass from './grass.jpg';
 import { Link } from 'react-router-dom';
 
 
