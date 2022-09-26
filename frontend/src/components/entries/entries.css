@@ -6,26 +6,16 @@
 
 
 .container-entries {
-    width: 100%;
-
-    background-image: url('http://pm1.narvii.com/6904/1ef7b698643b1eaf072414fa53df8977dda263e0r1-1919-1081v2_uhq.jpg');
-    background-repeat: no-repeat;
-    background-size: auto;   
-    background-attachment: fixed;
+    min-height: 100vh;
+    background: url('./trees.jpeg') no-repeat fixed center/cover;
 }  
 
 .container-entries__box { 
-    /* width: 100%; */
-    min-height: 100vh;
-
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 60px;
 
     padding: 100px !important;
-
-   
-  
 }
 
 .DEEZNUTS {
